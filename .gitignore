@@ -1,0 +1,22 @@
+# Ignorar configurações da IDE
+.idea/
+*.iml
+
+# Ignorar pasta de build do Maven
+QuizDevApi/target/
+
+# Ignorar arquivos temporários
+*.log
+*.tmp
+*.bak
+
+# Ignorar configurações do sistema/macOS
+.DS_Store
+
+# Ignorar configurações de build específicas
+QuizDevApi/.classpath
+QuizDevApi/.project
+QuizDevApi/.settings/
+
+# Arquivos de ambiente (se houver)
+.env

@@ -1,0 +1,6 @@
+CREATE TABLE quiz_results (
+  id SERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id),
+  score INTEGER NOT NULL,
+  answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

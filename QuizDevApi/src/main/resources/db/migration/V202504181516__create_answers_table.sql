@@ -1,0 +1,6 @@
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    is_correct BOOLEAN NOT NULL DEFAULT FALSE,
+    question_id INTEGER NOT NULL REFERENCES questions(id) ON DELETE CASCADE
+);

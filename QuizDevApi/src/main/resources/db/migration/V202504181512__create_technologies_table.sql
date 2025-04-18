@@ -1,0 +1,5 @@
+CREATE TABLE technologies (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  logo VARCHAR(255)
+);

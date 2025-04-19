@@ -1,5 +1,6 @@
 package com.quizdev.api.domain.user.entity;
 
+import com.quizdev.api.domain.quiz.entity.QuizResult;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

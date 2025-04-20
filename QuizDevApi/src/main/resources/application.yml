@@ -23,5 +23,19 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+  security:
+    user:
+      name: dev
+      password: "{noop}dev123"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+
+jwt:
+  secret: "UpHXYn6W8RyDJFlb1F9grIoDw87uKo7wLRUhz8xgBrTrVm8Z5e3cc8d3kbsA2QabXElRI9koWkRGhxHy0WBclQ=="
+
 server:
   port: 8080

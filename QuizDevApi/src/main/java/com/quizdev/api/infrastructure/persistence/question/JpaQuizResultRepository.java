@@ -1,7 +1,7 @@
 package com.quizdev.api.infrastructure.persistence.question;
 
 import com.quizdev.api.domain.quiz.entity.QuizResult;
-import com.quizdev.api.domain.repository.QuizResultRepository;
+import com.quizdev.api.domain.quiz.repository.QuizResultRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

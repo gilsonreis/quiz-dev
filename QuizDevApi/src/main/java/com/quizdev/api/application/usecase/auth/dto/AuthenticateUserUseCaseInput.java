@@ -1,19 +1,16 @@
 package com.quizdev.api.application.usecase.auth.dto;
 
-public class AuthenticateUserUseCaseInput {
-    private String username;
-    private String password;
+import com.quizdev.api.domain.shared.vo.Email;
+import com.quizdev.api.domain.shared.vo.Password;
+import lombok.Getter;
 
-    public AuthenticateUserUseCaseInput(String username, String password) {
+@Getter
+public class AuthenticateUserUseCaseInput {
+    private final Email username;
+    private final Password password;
+
+    public AuthenticateUserUseCaseInput(Email username, Password password) {
         this.username = username;
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

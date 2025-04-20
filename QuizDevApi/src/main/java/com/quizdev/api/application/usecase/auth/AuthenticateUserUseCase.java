@@ -3,6 +3,7 @@ package com.quizdev.api.application.usecase.auth;
 import com.quizdev.api.application.usecase.auth.dto.AuthenticateUserUseCaseInput;
 import com.quizdev.api.application.usecase.auth.dto.AuthenticateUserUseCaseOutput;
 import com.quizdev.api.domain.user.entity.User;
+import com.quizdev.api.domain.user.exception.InvalidCredentialsException;
 import com.quizdev.api.domain.user.repository.UserRepository;
 import com.quizdev.api.infrastructure.persistence.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +26,11 @@ public class AuthenticateUserUseCase {
     }
 
     public AuthenticateUserUseCaseOutput execute(AuthenticateUserUseCaseInput input) {
-        User user = userRepository.findByEmail(input.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid Credencials"));
+        User user = userRepository.findByEmail(input.getUsername().getValue())
+                .orElseThrow(InvalidCredentialsException::new);
 
-        if (!passwordEncoder.matches(input.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid Credencials");
+        if (!passwordEncoder.matches(input.getPassword().getValue(), user.getPassword())) {
+            throw new InvalidCredentialsException();
         }
 
         String token = jwtService.generateToken(user.getHashToken());

@@ -48,18 +48,18 @@ public class AuthControllerTest {
     @Test
     void shouldReturnTokenIfLoginIsValid() throws Exception {
 
-        User user = userRepository.findByEmail("admin@quizdev.com")
+        User user = userRepository.findByEmail("admin1@quizdev.com")
             .orElseGet(() -> {
                 User newUser = new User(
                         "Admin",
-                        "admin@quizdev.com",
+                        "admin1@quizdev.com",
                         passwordEncoder.encode("123456"),
                         "1234567890"
                 );
                 return userRepository.save(newUser);
             });
 
-        LoginRequest request = new LoginRequest("admin@quizdev.com", "123456");
+        LoginRequest request = new LoginRequest("admin1@quizdev.com", "123456");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,18 +72,18 @@ public class AuthControllerTest {
     @Test
     void shouldReturn401IfLoginIsInvalid() throws Exception {
 
-        User user = userRepository.findByEmail("admin@quizdev.com")
+        User user = userRepository.findByEmail("admin2@quizdev.com")
             .orElseGet(() -> {
                 User newUser = new User(
                         "Admin",
-                        "admin@quizdev.com",
+                        "admin2@quizdev.com",
                         passwordEncoder.encode("123456"),
                         "1234567890"
                 );
                 return userRepository.save(newUser);
             });
 
-        LoginRequest request = new LoginRequest("admin@quizdev.com", "wrongpassword");
+        LoginRequest request = new LoginRequest("admin2@quizdev.com", "wrongpassword");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -91,4 +91,25 @@ public class AuthControllerTest {
                 .andExpect(status().isUnauthorized());
 
     }
+
+    @Test
+    void shouldReturn401IfEmailDoesNotExist() throws Exception {
+        LoginRequest request = new LoginRequest("nonexistent@quizdev.com", "123456");
+
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void shouldReturn400IfLoginFieldsAreEmpty() throws Exception {
+        LoginRequest request = new LoginRequest("", "");
+
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
 }

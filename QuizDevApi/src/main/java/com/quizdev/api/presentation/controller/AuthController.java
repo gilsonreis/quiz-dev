@@ -1,6 +1,8 @@
 package com.quizdev.api.presentation.controller;
 
 import com.quizdev.api.application.usecase.auth.AuthenticateUserUseCase;
+import com.quizdev.api.domain.shared.vo.Email;
+import com.quizdev.api.domain.shared.vo.Password;
 import com.quizdev.api.presentation.request.LoginRequest;
 import com.quizdev.api.presentation.response.TokenResponse;
 import com.quizdev.api.application.usecase.auth.dto.AuthenticateUserUseCaseInput;
@@ -22,7 +24,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
-        AuthenticateUserUseCaseInput input  = new AuthenticateUserUseCaseInput(request.getEmail(), request.getPassword());
+        AuthenticateUserUseCaseInput input  = new AuthenticateUserUseCaseInput(
+            new Email(request.getEmail()),
+            new Password(request.getPassword())
+        );
         AuthenticateUserUseCaseOutput output = authenticateUserUseCase.execute(input);
         return ResponseEntity.ok(new TokenResponse(output.getToken()));
     }

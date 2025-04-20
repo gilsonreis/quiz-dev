@@ -2,6 +2,8 @@ package com.quizdev.api.application.usecase.auth;
 
 import com.quizdev.api.application.usecase.auth.dto.AuthenticateUserUseCaseInput;
 import com.quizdev.api.application.usecase.auth.dto.AuthenticateUserUseCaseOutput;
+import com.quizdev.api.domain.shared.vo.Email;
+import com.quizdev.api.domain.shared.vo.Password;
 import com.quizdev.api.domain.user.entity.User;
 import com.quizdev.api.domain.user.repository.UserRepository;
 import com.quizdev.api.infrastructure.persistence.security.JwtService;
@@ -45,7 +47,10 @@ public class AuthenticateUserUseCaseTest {
         when(jwtService.generateToken(user.getHashToken())).thenReturn(token);
 
         // when
-        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(email, password);
+        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(
+            new Email(email),
+            new Password(password)
+        );
         AuthenticateUserUseCaseOutput output = useCase.execute(input);
 
         // then
@@ -57,7 +62,10 @@ public class AuthenticateUserUseCaseTest {
     void shouldThrowExceptionIfUserNotFound() {
         when(userRepository.findByEmail("notfound@domain.com")).thenReturn(Optional.empty());
 
-        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput("notfound@domain.com", "123");
+        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(
+            new Email("notfound@domain.com"),
+            new Password("valid123")
+        );
 
         assertThrows(RuntimeException.class, () -> useCase.execute(input));
     }
@@ -70,7 +78,10 @@ public class AuthenticateUserUseCaseTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("wrongpass", user.getPassword())).thenReturn(false);
 
-        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(email, "wrongpass");
+        AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(
+            new Email(email),
+            new Password("wrongpass")
+        );
 
         assertThrows(RuntimeException.class, () -> useCase.execute(input));
     }

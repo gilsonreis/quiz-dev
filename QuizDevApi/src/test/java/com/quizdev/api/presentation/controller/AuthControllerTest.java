@@ -1,10 +1,9 @@
 package com.quizdev.api.presentation.controller;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quizdev.api.domain.user.entity.User;
 import com.quizdev.api.domain.user.repository.UserRepository;
-import com.quizdev.api.presentation.request.LoginRequest;
+import com.quizdev.api.presentation.request.auth.LoginRequest;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

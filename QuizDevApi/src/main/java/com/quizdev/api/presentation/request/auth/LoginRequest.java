@@ -1,4 +1,4 @@
-package com.quizdev.api.presentation.request;
+package com.quizdev.api.presentation.request.auth;
 
 import lombok.Getter;
 

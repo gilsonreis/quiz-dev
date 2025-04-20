@@ -11,4 +11,5 @@ public interface UserRepository {
     Optional<User> findById(Long id);
     void deleteById(Long id);
     List<User> findAll();
+    Optional<User> findByHashToken(String hashToken);
 }

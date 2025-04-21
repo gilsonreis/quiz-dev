@@ -1,5 +1,6 @@
 package com.quizdev.api.domain.user.entity;
 
+import com.quizdev.api.domain.quiz.entity.QuizResult;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
     private Long id;
+
+    @Setter
+    @Column(nullable = false)
+    private String name;
 
     @Setter
     @Column(unique = true, nullable = false)
@@ -40,7 +46,8 @@ public class User {
 
     public User() {}
 
-    public User(String email, String password, String hashToken) {
+    public User(String name, String email, String password, String hashToken) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.hashToken = hashToken;

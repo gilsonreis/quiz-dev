@@ -33,7 +33,7 @@ public class AuthenticateUserUseCase {
             throw new InvalidCredentialsException();
         }
 
-        String token = jwtService.generateToken(user.getHashToken());
+        String token = jwtService.generateToken(user.getId());
         return new AuthenticateUserUseCaseOutput(token);
     }
 }

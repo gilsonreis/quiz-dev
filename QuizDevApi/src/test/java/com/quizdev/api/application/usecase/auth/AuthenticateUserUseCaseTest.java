@@ -44,7 +44,7 @@ public class AuthenticateUserUseCaseTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(password, encodedPassword)).thenReturn(true);
-        when(jwtService.generateToken(user.getHashToken())).thenReturn(token);
+        when(jwtService.generateToken(user.getId())).thenReturn(token);
 
         // when
         AuthenticateUserUseCaseInput input = new AuthenticateUserUseCaseInput(
